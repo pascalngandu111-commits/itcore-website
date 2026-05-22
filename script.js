@@ -188,7 +188,7 @@ if (filters){
   });
 
   function sendWhatsApp(msg){
-    var phone = '260000000000'; // placeholder
+    var phone = '260962947441'; // placeholder
     var url = 'https://wa.me/'+phone+'?text='+encodeURIComponent(msg);
     window.open(url,'_blank','noopener');
   }
