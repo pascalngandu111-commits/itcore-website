@@ -48,68 +48,67 @@
   }
 
   // ---------- Products ----------
-  var products = [
-    {id:1, name:'Business Laptop',           cat:'laptops',     price:12500, icon:'laptop'},
-    {id:2, name:'HP EliteBook',              cat:'laptops',     price:9800,  icon:'laptop'},
-    {id:3, name:'Dell Latitude',             cat:'laptops',     price:10500, icon:'laptop'},
-    {id:4, name:'iPhone 12',                 cat:'phones',      price:8500,  icon:'phone'},
-    {id:5, name:'Samsung Galaxy A Series',   cat:'phones',      price:4200,  icon:'phone'},
-    {id:6, name:'WiFi Router',               cat:'networking',  price:850,   icon:'router'},
-    {id:7, name:'CCTV Camera Kit',           cat:'security',    price:3500,  icon:'cctv'},
-    {id:8, name:'External Hard Drive 1TB',   cat:'accessories', price:1200,  icon:'drive'},
-    {id:9, name:'Wireless Keyboard & Mouse', cat:'accessories', price:650,   icon:'keyboard'},
-    {id:10,name:'Antivirus Security Package',cat:'security',    price:450,   icon:'shield'}
-  ];
+var products = [
+  {id:1, name:'Business Laptop', cat:'laptops', price:12500, image:'images/business-laptop.jpg'},
+  {id:2, name:'HP EliteBook', cat:'laptops', price:9800, image:'images/hp-elitebook.jpg'},
+  {id:3, name:'Dell Latitude', cat:'laptops', price:10500, image:'images/dell-latitude.jpg'},
+  {id:4, name:'iPhone 12', cat:'phones', price:8500, image:'images/iphone-12.jpg'},
+  {id:5, name:'Samsung Galaxy A Series', cat:'phones', price:4200, image:'images/samsung-galaxy-a-series.jpg'},
+  {id:6, name:'WiFi Router', cat:'networking', price:850, image:'images/wifi-router.jpg'},
+  {id:7, name:'CCTV Camera Kit', cat:'security', price:3500, image:'images/cctv-camera-kit.jpg'},
+  {id:8, name:'External Hard Drive 1TB', cat:'accessories', price:1200, image:'images/external-hard-drive-1tb.jpg'},
+  {id:9, name:'Wireless Keyboard & Mouse', cat:'accessories', price:650, image:'images/wireless-keyboard-mouse.jpg'},
+  {id:10, name:'Antivirus Security Package', cat:'security', price:450, image:'images/antivirus-security-package.jpg'}
+];
 
-  var ICONS = {
-    laptop:  '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="14" width="44" height="28" rx="2"/><path d="M6 46h52l-3 6H9z"/></svg>',
-    phone:   '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="20" y="6" width="24" height="52" rx="4"/><circle cx="32" cy="52" r="1.5" fill="currentColor"/></svg>',
-    router:  '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="36" width="44" height="14" rx="2"/><path d="M20 36V26M44 36V26M16 20c8-8 24-8 32 0M22 26c5-5 15-5 20 0"/></svg>',
-    cctv:    '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="18" width="36" height="16" rx="2"/><path d="M46 26h10M22 34v6M16 46h12"/></svg>',
-    drive:   '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="10" y="20" width="44" height="24" rx="2"/><circle cx="46" cy="32" r="2" fill="currentColor"/></svg>',
-    keyboard:'<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="20" width="52" height="24" rx="3"/><path d="M14 28h2M22 28h2M30 28h2M38 28h2M46 28h2M18 36h28"/></svg>',
-    shield:  '<svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2"><path d="M32 6l22 8v14c0 14-10 24-22 28-12-4-22-14-22-28V14z"/><path d="M22 32l8 8 14-16"/></svg>'
-  };
+var grid = document.getElementById('itcore-products');
+var filters = document.getElementById('itcore-filters');
+var activeFilter = 'all';
 
-  var grid = document.getElementById('itcore-products');
-  var filters = document.getElementById('itcore-filters');
-  var activeFilter = 'all';
+function fmt(n){ return 'ZMW ' + n.toLocaleString('en-US'); }
 
-  function fmt(n){ return 'ZMW ' + n.toLocaleString('en-US'); }
+function renderProducts(){
+  if (!grid) return;
+  grid.innerHTML = '';
 
-  function renderProducts(){
-    if (!grid) return;
-    grid.innerHTML = '';
-    products.filter(function(p){ return activeFilter==='all' || p.cat===activeFilter; })
+  products
+    .filter(function(p){ return activeFilter === 'all' || p.cat === activeFilter; })
     .forEach(function(p){
       var el = document.createElement('article');
       el.className = 'itcore-product itcore-reveal in';
+
       el.innerHTML =
-        '<div class="itcore-product-img">'+(ICONS[p.icon]||ICONS.shield)+'</div>'+
-        '<div class="itcore-product-body">'+
-          '<span class="itcore-product-cat">'+p.cat+'</span>'+
-          '<h3 class="itcore-product-name">'+p.name+'</h3>'+
-          '<div class="itcore-product-price">'+fmt(p.price)+'</div>'+
-          '<div class="itcore-product-actions">'+
-            '<button class="itcore-add-cart" data-id="'+p.id+'">Add to Cart</button>'+
-            '<button class="itcore-quote-btn" data-quote="'+p.id+'">Quote</button>'+
-          '</div>'+
+        '<div class="itcore-product-img">' +
+          '<img src="' + p.image + '" alt="' + p.name + '">' +
+        '</div>' +
+        '<div class="itcore-product-body">' +
+          '<span class="itcore-product-cat">' + p.cat + '</span>' +
+          '<h3 class="itcore-product-name">' + p.name + '</h3>' +
+          '<div class="itcore-product-price">' + fmt(p.price) + '</div>' +
+          '<div class="itcore-product-actions">' +
+            '<button class="itcore-add-cart" data-id="' + p.id + '">Add to Cart</button>' +
+            '<button class="itcore-quote-btn" data-quote="' + p.id + '">Quote</button>' +
+          '</div>' +
         '</div>';
+
       grid.appendChild(el);
     });
-  }
+}
 
-  if (filters){
-    filters.addEventListener('click', function(e){
-      var t = e.target.closest('.itcore-filter');
-      if (!t) return;
-      filters.querySelectorAll('.itcore-filter').forEach(function(b){ b.classList.remove('active'); });
-      t.classList.add('active');
-      activeFilter = t.dataset.filter;
-      renderProducts();
+if (filters){
+  filters.addEventListener('click', function(e){
+    var t = e.target.closest('.itcore-filter');
+    if (!t) return;
+
+    filters.querySelectorAll('.itcore-filter').forEach(function(b){
+      b.classList.remove('active');
     });
-  }
 
+    t.classList.add('active');
+    activeFilter = t.dataset.filter;
+    renderProducts();
+  });
+}
   // ---------- Cart ----------
   var cart = []; // {id, qty}
   var cartBtn = document.getElementById('itcore-cart-btn');
