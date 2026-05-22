@@ -388,3 +388,10 @@ a{color:inherit;text-decoration:none}
   display: block;
   padding: 20px;
 }
+.itcore-founder-grid {
+  align-items: start;
+}
+
+.itcore-founder-grid > div:last-child {
+  padding-top: 40px;
+}
